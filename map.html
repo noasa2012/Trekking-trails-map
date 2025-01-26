@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trekking Trails Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+
+      #filter-menu {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        font-family: Arial, sans-serif;
+        width: 300px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      #filter-menu:hover {
+        transform: scale(1.05);
+      }
+
+      #filter-menu h3 {
+        margin-top: 0;
+        font-size: 20px;
+        color: #333;
+        text-align: center;
+      }
+
+      #filter-menu label {
+        font-size: 14px;
+        color: #555;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      #filter-menu input,
+      #filter-menu select {
+        width: 100%;
+        padding: 8px 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      #filter-menu input:focus,
+      #filter-menu select:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      #filter-menu button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      #filter-menu button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="filter-menu">
+      <h3>Filter Trails</h3>
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty" onchange="filterMarkers()">
+        <option value="">All</option>
+        <option value="Easy">Easy</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Hard">Hard</option>
+      </select>
+      <label for="location">Location:</label>
+      <input
+        type="text"
+        id="location"
+        placeholder="Enter location (e.g., Nepal)"
+        oninput="filterMarkers()"
+      />
+      <label for="duration">Duration (days):</label>
+      <input
+        type="number"
+        id="min-duration"
+        placeholder="Min duration"
+        oninput="filterMarkers()"
+      />
+      <input
+        type="number"
+        id="max-duration"
+        placeholder="Max duration"
+        oninput="filterMarkers()"
+      />
+      <label for="altitude">Altitude (meters):</label>
+      <input
+        type="number"
+        id="min-altitude"
+        placeholder="Min altitude"
+        oninput="filterMarkers()"
+      />
+      <input
+        type="number"
+        id="max-altitude"
+        placeholder="Max altitude"
+        oninput="filterMarkers()"
+      />
+      <button onclick="clearFilters()">Clear Filters</button>
+    </div>
+    <div id="map"></div>
+    <script src="./script.js"></script>
+  </body>
+</html>
